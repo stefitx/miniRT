@@ -92,6 +92,7 @@ typedef union u_shape
 	t_sphere	sphere;
 	t_plane		plane;
 	t_cylinder	cylinder;
+	t_paraboloid	paraboloid;
 }	t_shape;
 
 typedef struct s_object	t_object;
