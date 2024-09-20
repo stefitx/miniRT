@@ -3,83 +3,52 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: atudor <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: erigonza <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/18 09:36:16 by atudor            #+#    #+#              #
-#    Updated: 2024/09/18 09:36:19 by atudor           ###   ########.fr        #
+#    Created: 2024/07/29 19:36:23 by erigonza          #+#    #+#              #
+#    Updated: 2024/09/20 18:04:10 by erigonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= miniRT
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g -Ofast
-RM			= rm -f
+NAME = miniRT
+FLAGS = -Wall -Werror -Wextra #-g #-fsanitize=address 
 
-# Directories
-SRCS_DIR	= srcs/
-OBJS_DIR	= objs/
-GNL_DIR		= inc/gnl/
-MLX_DIR		= inc/MLX42/
-LIBFT_DIR	= inc/libft/
+INCLUDES = -I ./inc/\
+           -I ./src/libft/\
+		   -I ./mlx/
 
-# Source files
-FILES		= main camera
-# GNL_FILES	= $(addprefix $(GNL_DIR), get_next_line.c get_next_line_utils.c)
+SRC = camera.c, inits.c, main.c
 
-# Headers and includes
-HEADER		= inc/
-INCLUDE		= -I$(HEADER) -I$(MLX_DIR)/include -I$(LIBFT_DIR)
+DIR_SRC = ./src
+DIR_OBJ = $(DIR_SRC)/obj
+OBJ = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
+DEP = $(addprefix $(DIR_OBJ)/, $(SRC:.c=.d))
 
-# Source files and object files
-SRCS		= $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
-OBJS		= $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 
-# Libraries
-MINILIB		= $(MLX_DIR)
-LIBFT		= $(LIBFT_DIR)
+all: dir $(NAME)
 
-all: $(NAME)
+-include $(DEP)
 
-# Create the object directory if it doesn't exist
-$(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
+dir:
+	make -C ./mlx/ --no-print-directory
+	make -C ./src/libft/ --no-print-directory
+	mkdir -p $(DIR_OBJ)
 
-# Compile object files and place them in the objects directory
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADER)minirt.h $(MLX_DIR)/include/MLX42/MLX42.h $(LIBFT_DIR)libft.h Makefile | $(OBJS_DIR)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c Makefile
+	$(CC) -MMD $(FLAGS)  -c $< -o $@ $(INCLUDES)
+$(NAME): $(OBJ) ./src/libft/libft.a
+	$(CC) $(FLAGS) $(OBJ) ./mlx/libmlx.a -lXext -lX11 -lm -lz ./src/libft/libft.a -o $@ $(INCLUDES)
+	echo "$(NAME) Created :D"
 
-$(OBJS_DIR)%.o: $(GNL_DIR)%.c $(HEADER)minirt.h | $(OBJS_DIR)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+c clean:
+	rm -rf $(DIR_OBJ)
+	make clean -C ./src/libft/ --no-print-directory 
+	echo "DEPENDENCIES Erased :D"
 
-# Link everything together
-$(NAME): libft.a libmlx.a $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT_DIR)libft.a $(MLX_DIR)build/libmlx42.a $(INCLUDE) -L $(MLX_DIR) -L $(LIBFT_DIR) -lft -lm -ldl -lglfw -pthread -lXext -lX11 -lbsd
+f fclean: clean
+	rm -rf $(NAME)
+	make fclean -C ./src/libft/ --no-print-directory 
+	echo "EVERYTHING Erased D:"
 
-# Compile MiniLibX
-libmlx.a:
-	cmake -S $(MLX_DIR) -B $(MLX_DIR)/build
-	$(MAKE) -C $(MLX_DIR)/build
-
-# Compile libft
-libft.a:
-	$(MAKE) -C $(LIBFT_DIR)
-
-# Build everything
-all: $(NAME)
-
-# Clean object files
-clean:
-	$(RM) -r $(OBJS_DIR)
-	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MINILIB)/build clean
-
-# Full clean: remove object files and executable
-fclean: clean
-	$(RM) $(NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(MAKE) -C $(MINILIB)/build clean
-
-# Rebuild everything
-re: fclean all
-
-.PHONY: all clean fclean re libmlx.a libft.a
+r re: fclean all
+.PHONY: fclean all clean re dir
