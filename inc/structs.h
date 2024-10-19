@@ -19,9 +19,9 @@
 
 typedef struct s_vector
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_vector;
 
 typedef struct s_line
@@ -34,14 +34,14 @@ typedef struct s_sphere
 {
 	t_vector	center;
 	float		radius;
-	int			color;
+	t_vector			color;
 }	t_sphere;
 
 typedef struct s_plane
 {
 	t_vector	center;
 	t_vector	normal;
-	int			color;
+	t_vector	color;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -50,7 +50,7 @@ typedef struct s_cylinder
 	t_vector	axis;
 	float		radius;
 	float		height;
-	int			color;
+	t_vector	color;
 }	t_cylinder;
 
 typedef struct s_paraboloid
@@ -68,49 +68,29 @@ typedef struct s_paraboloid
 typedef struct s_light
 {
 	t_vector	origin;
-	float		brightness;
-	int			color;
+	double		brightness;
+	t_vector	color;
 }	t_light;
 
 typedef struct s_camera
 {
 	t_vector	origin;
 	t_vector	orientation;
-	float		fov;
+	double		fov;
 }	t_camera;
-
-typedef enum e_objtype
-{
-	SPHERE,
-	PLANE,
-	CYLINDER,
-	PARABOLOID
-}	t_objtype;
-
-typedef union u_shape
-{
-	t_sphere	sphere;
-	t_plane		plane;
-	t_cylinder	cylinder;
-	t_paraboloid	paraboloid;
-}	t_shape;
-
-typedef struct s_object	t_object;
-
-struct s_object
-{
-	t_objtype	type;
-	t_shape		shape;
-	t_object	*next;
-};
 
 typedef struct s_scene
 {
-	t_camera	camera;
-	t_light		*lights;
-	t_object	*objects;
-	int			light_count;
-	int			object_count;
+    t_sphere **spheres;
+    t_plane **planes;
+    t_cylinder **cylinders;
+    t_light **lights;
+    t_camera camera;
+    double ambient_intensity;
+    int num_spheres;
+    int num_planes;
+    int num_cylinders;
+    int num_lights;
 }	t_scene;
 
 typedef struct s_pixel_map

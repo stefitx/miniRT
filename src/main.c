@@ -93,31 +93,64 @@ void key_events(void* param)
 }
 
 
-int main(void)
-{
-	t_mlx_data mlx_data;
-	t_scene scene;
+// int main(void)
+// {
+// 	t_mlx_data mlx_data;
+// 	t_scene scene;
 
-	//mlx_data = mlx_minrt_init();
-	scene = init_scene();
-	mlx_data.scene = scene;
-	mlx_t *mlx;
-	mlx_image_t *img;
-	//t_mlx_data mlx_data;
+// 	//mlx_data = mlx_minrt_init();
+// 	scene = init_scene();
+// 	mlx_data.scene = scene;
+// 	mlx_t *mlx;
+// 	mlx_image_t *img;
+// 	//t_mlx_data mlx_data;
 
-	mlx = mlx_init(1000, 1000, "miniRT", true);
-	img = mlx_new_image(mlx, 1000, 1000);
-	mlx_loop_hook(mlx, key_events, &mlx);
-	mlx_image_to_window(mlx, img, 0, 0);
-	printf("img address: %p\n", img);
-	mlx_data.mlx = mlx;
-	mlx_data.img = img;
-	//printf("camera origin: %f %f %f\n", scene.camera.origin.x, scene.camera.origin.y, scene.camera.origin.z);
-	camera_setup(&mlx_data, &scene);
-	draw_image(&mlx_data);
-	printf("img address FINAL: %p\n", mlx_data.img);
+// 	mlx = mlx_init(1000, 1000, "miniRT", true);
+// 	img = mlx_new_image(mlx, 1000, 1000);
+// 	mlx_loop_hook(mlx, key_events, &mlx);
+// 	mlx_image_to_window(mlx, img, 0, 0);
+// 	printf("img address: %p\n", img);
+// 	mlx_data.mlx = mlx;
+// 	mlx_data.img = img;
+// 	//printf("camera origin: %f %f %f\n", scene.camera.origin.x, scene.camera.origin.y, scene.camera.origin.z);
+// 	camera_setup(&mlx_data, &scene);
+// 	draw_image(&mlx_data);
+// 	printf("img address FINAL: %p\n", mlx_data.img);
 	
-	mlx_loop(mlx_data.mlx);
-	//printf("Hello, world!\n");
+// 	mlx_loop(mlx_data.mlx);
+// 	//printf("Hello, world!\n");
+// 	return 0;
+// }
+
+void	create_scene(t_scene *scene)
+{
+
+}
+
+int main(int argc, char **argv)
+{
+	t_scene scene;
+	t_camera camera;
+	
+	// ERIK
+	// Parse command line arguments
+	// Read the scene file
+	// Parse the scene file
+    // Initialize the scene
+
+    create_scene(&scene)
+    
+    // Set up objects in the scene (spheres, planes, cylinders, etc.)
+    setup_scene(scene)
+    
+    // Set up the camera
+    camera = setup_camera()
+    
+    // Render the scene
+    render(scene, camera)
+
+    // Display or save the rendered image
+
+    // Free memory and cleanup
 	return 0;
 }

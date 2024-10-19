@@ -41,7 +41,6 @@ class Plane:
         if np.abs(denom) > 1e-6:  # Check that ray is not parallel to the plane
             t = np.dot(self.point - ray.origin, self.normal) / denom
             if t >= 0:
-                print(t)
                 return t
         return None
 
@@ -124,12 +123,13 @@ class Camera:
         self.fov = fov
 
 class Scene:
-    def __init__(self, camera, image_width, image_height):
+    def __init__(self, camera, image_width, image_height, ambient_intensity=0.2):
         self.objects = []
         self.lights = []
         self.camera = camera
         self.image_width = image_width
         self.image_height = image_height
+        self.ambient_intensity = ambient_intensity  # Fixed ambient light intensity
 
     def add_object(self, obj):
         self.objects.append(obj)
@@ -163,12 +163,18 @@ class Scene:
 
         color = np.zeros(3)
 
+        # Add ambient light contribution
+        ambient_light = closest_object.color * self.ambient_intensity
+        color += ambient_light
+
+        # Add diffuse lighting
         for light in self.lights:
             to_light = normalize(light.position - hit_point)
             diffuse_intensity = max(0, np.dot(to_light, normal)) * light.intensity
             color += closest_object.color * diffuse_intensity
 
         return np.clip(color, 0, 255)
+
 
 
     def render(self):
@@ -198,3 +204,4 @@ class Scene:
                 image[y, x] = color
 
         return image
+-

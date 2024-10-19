@@ -22,14 +22,14 @@ def main():
     paraboloid_k = 0.01  # Coefficient for the paraboloid equation
     paraboloid_color = [255, 255, 0]  # Yellow paraboloid
     paraboloid = Paraboloid(paraboloid_vertex, paraboloid_axis, paraboloid_k, paraboloid_color)
-    scene.add_object(paraboloid)
+    # scene.add_object(paraboloid)
     
     # Add a sphere
     sphere_center = [100.0, -50.0, 200]
     sphere_radius = 50  # Sphere radius
     sphere_color = [255, 0, 0]  # Red sphere
     sphere = Sphere(sphere_center, sphere_radius, sphere_color)
-    # scene.add_object(sphere)
+    scene.add_object(sphere)
     
     # Add a plane
     plane_point = [0.0, -100.0, 0]  # Plane position
@@ -52,26 +52,26 @@ def main():
     cylinder_height = 200  # Height of the cylinder
     cylinder_color = [0, 0, 255]  # Blue cylinder
     cylinder = Cylinder(cylinder_center, cylinder_axis, cylinder_radius, cylinder_height, cylinder_color)
-    # scene.add_object(cylinder)
+    scene.add_object(cylinder)
     
     # Add multiple light sources with different colors
-    light_position1 = [600, -10, 1050]  # Light position
-    light_intensity1 = 0.6  # Light intensity
-    light_color1 = [255, 255, 255]  # White light
-    light1 = Light(light_position1, light_intensity1, light_color1)
+    # light_position1 = [600, -10, 1050]  # Light position
+    # light_intensity1 = 0.6  # Light intensity
+    # light_color1 = [255, 255, 255]  # White light
+    # light1 = Light(light_position1, light_intensity1, light_color1)
     # scene.add_light(light1)
     
     light_position2 = [-600, 10, 1050]  # Another light position
     light_intensity2 = 1
     light_color2 = [0, 255, 0]  # Green light
     light2 = Light(light_position2, light_intensity2, light_color2)
-    # scene.add_light(light2)
+    scene.add_light(light2)
 
-    light_position3 = [0, 500, 500]  # Top light position
-    light_intensity3 = 1
-    light_color3 = [255, 255, 255]  # White light
-    light3 = Light(light_position3, light_intensity3, light_color3)
-    scene.add_light(light3)
+    # light_position3 = [0, 500, 500]  # Top light position
+    # light_intensity3 = 1
+    # light_color3 = [255, 255, 255]  # White light
+    # light3 = Light(light_position3, light_intensity3, light_color3)
+    # scene.add_light(light3)
 
     # Render the scene
     image_data = scene.render()
