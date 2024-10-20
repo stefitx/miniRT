@@ -17,7 +17,7 @@ INCLUDES = -I ./inc/\
            -I ./src/libft/\
 		   -I ./mlx/
 
-SRC = camera.c, inits.c, main.c
+SRC = main.c inits.c camera.c sphere.c plane.c cylinder.c lights.c render_engine.c math.c
 
 DIR_SRC = ./src
 DIR_OBJ = $(DIR_SRC)/obj

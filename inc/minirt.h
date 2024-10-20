@@ -20,12 +20,41 @@
 # include "../inc/MLX42/include/MLX42/MLX42.h"
 # include "structs.h"
 
-// Function prototypes
 // void draw_image(t_img img);
 // void render_scene(t_mlx mlx);
 
-void	camera_setup(t_mlx_data *mlx_data, t_scene *scene);
 
+// camera functions
+t_camera *create_camera(void);
+
+// light functions
+void	setup_lights(t_scene *scene, int num_lights);
+t_light	*create_light(t_scene *scene);
+
+// sphere functions
+void	setup_spheres(t_scene *scene, int num_spheres);
+t_sphere	*create_sphere(t_scene *scene);
+
+// plane functions
+void	setup_planes(t_scene *scene, int num_planes);
+t_plane	*create_plane(t_scene *scene);
+
+// cylinder functions
+void	setup_cylinders(t_scene *scene, int num_cylinders);
+t_cylinder	*create_cylinder(t_scene *scene);
+
+// inits
+void	init_vector(t_vector *vector, double x, double y, double z);
+void	create_scene(t_scene *scene);
+
+// render engine
+void	render_engine(t_data *data);
+
+// math functions
+t_vector	vector_add(t_vector a, t_vector b);
+t_vector	vector_scalar(t_vector a, double scalar);
+double		normal_dev_coordinates(int coord, t_data *data, int ratio, int b);
+t_vector	normalize_vector(double x, double y, double z);
 
 
 #endif

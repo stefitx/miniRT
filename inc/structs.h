@@ -24,11 +24,11 @@ typedef struct s_vector
 	double	z;
 }	t_vector;
 
-typedef struct s_line
+typedef struct s_ray
 {
 	t_vector origin;
 	t_vector direction;
-}	t_line;
+}	t_ray;
 
 typedef struct s_sphere
 {
@@ -81,35 +81,32 @@ typedef struct s_camera
 
 typedef struct s_scene
 {
-    t_sphere **spheres;
-    t_plane **planes;
-    t_cylinder **cylinders;
-    t_light **lights;
-    t_camera camera;
-    double ambient_intensity;
-    int num_spheres;
-    int num_planes;
-    int num_cylinders;
-    int num_lights;
+	t_sphere **spheres;
+	t_plane **planes;
+	t_cylinder **cylinders;
+	t_light **lights;
+	t_camera *camera;
+	int num_spheres;
+	int num_planes;
+	int num_cylinders;
+	int num_lights;
 }	t_scene;
 
-typedef struct s_pixel_map
-{
-	t_vector		*pixel_array;
-	t_vector		*all_intersections;
-	int			*intersection;
-}	t_pixel_map;
 
 /* ************************************************************************** */
 /*                                mlx structures                              */
 /* ************************************************************************** */
 
-typedef struct s_mlx_data
+typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
-	t_pixel_map	*pixel_map;
-	t_scene		scene;
-}t_mlx_data;
+	int			aspect_ratio;
+	double		scale;
+	t_scene		*scene;
+}t_data;
+
+
+// erik's structs
 
 #endif
