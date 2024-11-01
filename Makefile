@@ -14,10 +14,11 @@ NAME = miniRT
 FLAGS = -Wall -Werror -Wextra #-g #-fsanitize=address 
 
 INCLUDES = -I ./inc/\
-           -I ./src/libft/\
+           -I ./inc/libft/\
 		   -I ./mlx/
 
-SRC = main.c inits.c camera.c sphere.c plane.c cylinder.c lights.c render_engine.c math.c
+SRC = main.c inits.c camera.c sphere.c plane.c cylinder.c lights.c render_engine.c math.c \
+ray.c 
 
 DIR_SRC = ./src
 DIR_OBJ = $(DIR_SRC)/obj
@@ -37,7 +38,7 @@ dir:
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c Makefile
 	$(CC) -MMD $(FLAGS)  -c $< -o $@ $(INCLUDES)
 $(NAME): $(OBJ) ./src/libft/libft.a
-	$(CC) $(FLAGS) $(OBJ) ./mlx/libmlx.a -lXext -lX11 -lm -lz ./src/libft/libft.a -o $@ $(INCLUDES)
+	$(CC) $(FLAGS) $(OBJ) ./inc/MLX42/build/libmlx42.a -lglfw -lXext -lX11 -lm -lz ./src/libft/libft.a -o $@ $(INCLUDES)
 	echo "$(NAME) Created :D"
 
 c clean:

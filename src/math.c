@@ -22,6 +22,21 @@ t_vector	vector_add(t_vector a, t_vector b)
 	return (vector);
 }
 
+t_vector	vector_subtract(t_vector a, t_vector b)
+{
+	t_vector	vector;
+
+	vector.x = a.x - b.x;
+	vector.y = a.y - b.y;
+	vector.z = a.z - b.z;
+	return (vector);
+}
+
+float	dot_product(t_vector a, t_vector b)
+{
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
+}
+
 t_vector	vector_scalar(t_vector a, double scalar)
 {
 	t_vector	vector;
@@ -29,6 +44,16 @@ t_vector	vector_scalar(t_vector a, double scalar)
 	vector.x = a.x * scalar;
 	vector.y = a.y * scalar;
 	vector.z = a.z * scalar;
+	return (vector);
+}
+
+t_vector	vector_cross_product(t_vector a, t_vector b)
+{
+	t_vector vector;
+
+	vector.x = a.y * b.z - a.z * b.y;
+	vector.y = a.z * b.x - a.x * b.z;
+	vector.z = a.x * b.y - a.y * b.x;
 	return (vector);
 }
 

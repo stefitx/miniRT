@@ -14,14 +14,14 @@
 #include "../inc/minirt.h"
 #include <math.h>
 
-void key_events(void* param)
-{
-	mlx_t		 *mlx;
+// void key_events(void* param)
+// {
+// 	mlx_t		 *mlx;
 	
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-}
+// 	mlx = param;
+// 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+// 		mlx_close_window(mlx);
+// }
 
 void	init_data(t_data *data, t_scene *scene)
 {
@@ -30,7 +30,7 @@ void	init_data(t_data *data, t_scene *scene)
 
 	mlx = mlx_init(1000, 1000, "miniRT", true);
 	img = mlx_new_image(mlx, 1000, 1000);
-	mlx_loop_hook(mlx, key_events, &mlx);
+	// mlx_loop_hook(mlx, key_events, &mlx);
 	mlx_image_to_window(mlx, img, 0, 0);
 	data->mlx = mlx;
 	data->img = img;
@@ -64,7 +64,7 @@ int main(void)
 	render_engine(&data);
 
     // Display or save the rendered image
-	//mlx_display_image(mlx_data.img);
+	// mlx_display_image(mlx_data.img);
 
     // Free memory and cleanup
 	
