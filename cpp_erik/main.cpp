@@ -7,23 +7,16 @@
 
 // Function to check if a ray hits a sphere
 double hit_sphere(const point3& center, double radius, const ray& r) {
-    // Vector from the ray origin to the center of the sphere
     vec3 oc = center - r.origin();
+    auto a = r.direction().length_squared();
+    auto h = dot(r.direction(), oc);
+    auto c = oc.length_squared() - radius*radius;
+    auto discriminant = h*h - a*c;
 
-    // Calculate the values for the quadratic formula
-    auto a = dot(r.direction(), r.direction()); // The direction squared (part of distance measurement)
-    auto b = -2.0 * dot(r.direction(), oc);     // Twice the direction and distance product
-    auto c = dot(oc, oc) - radius * radius;     // Distance squared minus the sphere's radius squared
-
-    // Calculate the discriminant to determine if the ray hits the sphere
-    auto discriminant = b * b - 4 * a * c;
-
-    // If discriminant is negative, the ray misses the sphere (no real solution)
     if (discriminant < 0) {
         return -1.0;
     } else {
-        // Return the closest hit point along the ray
-        return (-b - std::sqrt(discriminant)) / (2.0 * a);
+        return (h - std::sqrt(discriminant)) / a;
     }
 }
 
